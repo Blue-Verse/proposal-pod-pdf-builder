@@ -85,4 +85,142 @@ job:
 
 ## 6. 최종 산출물 (8단계 출력 전문)
 
-(8단계 완료 후 추가 예정)
+### 6-1. 제안서 사이트 URL
+
+```
+https://proposal-router.claude-ai-b27.workers.dev/proposal-pod-pdf-builder/
+```
+
+### 6-2. 지원 금액
+
+```
+8,100,000원
+```
+
+### 6-3. 지원 기간
+
+```
+30일
+```
+
+### 6-4. 클라이언트 질문 답변
+
+**Q: 서버리스 환경(Vercel/AWS Lambda) 배포 경험이 있으십니까?**
+
+예, 다수 보유하고 있습니다.
+
+- Vercel Serverless Functions / AWS Lambda 환경에서 Python 및 Node.js 모듈을 배포·운영한 경험이 있습니다.
+- 콜드스타트 시간, 메모리 한도(Vercel 1024MB / Lambda 기본 한도), 실행 시간 한도, 파일 시스템 제약(/tmp 사용 등)을 고려한 패키지 설계에 익숙합니다.
+- 본 프로젝트에서도 외부 바이너리(ImageMagick) 의존을 최소화하고 순수 Python 라이브러리(Pillow, fpdf2/ReportLab, qrcode) 위주로 구성하여 단일 wheel 패키지로 Vercel Serverless에서 안정 호출되도록 설계할 예정입니다. 콜드스타트·메모리·실행시간 측정 결과를 문서화하여 인계해 드립니다.
+
+**Q: 인쇄 규격 맞춤 + CMYK + 블리드 경험이 있으십니까?**
+
+예, 보유하고 있습니다.
+
+- 고정 양식(VICS 규제 5종 등)의 자동 PDF 출력 프로젝트를 수행하면서 PDF/X 호환 메타데이터, 트림박스 / 블리드박스 / 안전영역 처리 경험이 있습니다.
+- Pillow + LittleCMS 기반 sRGB→CMYK 변환 파이프라인 구성 경험이 있으며, 본 프로젝트 요구 ICC 프로파일(USWebCoatedSWOP)을 명시적으로 적용하여 모니터-인쇄 간 색차를 최소화합니다.
+- 8.5×8.5인치 / 300 DPI / 블리드 0.125인치(사방) 사양을 단일 `PrintSpec` 객체로 추상화하여, 사이즈 변경(추후 사이즈 변동 가능 명시)이나 POD 업체 변경(Printful↔Blurb) 시 코드 수정 없이 설정값 교체로 대응 가능한 구조로 설계합니다.
+
+### 6-5. 지원 내용 (위시켓 폼 "지원 내용" 필드 입력 본문)
+
+```
+안녕하세요, 인쇄용 PDF 자동 조립 Python 모듈 개발 프로젝트에 지원합니다.
+
+본 프로젝트에 대한 상세 제안서(견적서, 공수계산서, PRD, 일정, 포트폴리오)를 별도 페이지로 준비하였습니다. 아래 링크에서 확인해 주시면 감사하겠습니다.
+▶ 제안서 상세 페이지: https://proposal-router.claude-ai-b27.workers.dev/proposal-pod-pdf-builder/
+▶ 위시켓 포트폴리오: https://www.wishket.com/partners/p/blueverse1/
+
+---
+
+<프로젝트 진행 제안>
+
+■ 프로젝트 분석
+- 8.5×8.5인치 / 300 DPI / CMYK / 블리드 0.125인치 / 표지+내지 20페이지 / 하드커버 무선제본 사양을 모두 충족하는 인쇄용 PDF를 자동 생성하는 Python 모듈 개발
+- 핵심 도메인: 인쇄 규격 정합성(PDF/X 호환), sRGB→CMYK 색관리(ICC USWebCoatedSWOP), 표지·내지 자동 조립, OTF/TTF 폰트 임베딩, QR 코드 동적 삽입, POD API 연동(Printful/Blurb), Vercel Serverless 호출 가능 구조
+- 정부지원사업 정산 요건(견적서 발행, 보증보험 발급, 마일스톤 검수)을 충족하도록 일정·산출물 표준화
+
+■ 작업 일정
+
+[Phase 1] Day 1–4 — 기획 / 설계
+- PRD, 모듈 인터페이스 설계, 인쇄 규격 사양서, POD 업체 1차 결정
+
+[Phase 2] Day 5–12 — 코어 모듈 개발
+- PDF 빌더, 내지 레이아웃 엔진(풀블리드/마진/텍스트박스), 표지 자동 조립, OTF/TTF 폰트 임베딩, 1차 샘플 PDF
+
+[Phase 3] Day 13–20 — 색공간 / QR / POD API
+- sRGB→CMYK 변환, ICC 프로파일(USWebCoatedSWOP) 적용, 블리드·트림박스, QR 자동 삽입, Printful/Blurb 연동(선택), webhook 샘플
+
+[Phase 4] Day 21–26 — 테스트 / 서버리스 / 문서
+- pytest 단위 테스트, Vercel Serverless 호출 검증, 콜드스타트·메모리 측정, README·API 문서·샘플 데이터, pip install 가능 패키지 빌드
+
+[Phase 5] Day 27–30 — 검수 / 인계 / 하자보수 시작
+- 최종 검수 반영, 패키지 인계, 인계 미팅, 1개월 무상 하자 보수 시작
+
+■ 마일스톤 및 산출물
+- M1 (Day 4): 설계 검토 — PRD·인쇄 규격 사양서 승인
+- M2 (Day 12): 1차 샘플 PDF — 표지+내지 20페이지 sRGB PDF 시연
+- M3 (Day 20): 인쇄 규격 충족 — CMYK+ICC+블리드+QR 검수, POD 데모
+- M4 (Day 26): 통합 검수 — 테스트·Vercel 호출·문서 검토 통과
+- M5 (Day 30): 최종 인수 — 패키지 인계, 잔금 청구 / 하자 보수 시작
+
+■ 미팅 시 협의 필요 사항
+- 인쇄 규격 최종 확정 (8.5×8.5인치 외 다른 사이즈 가능성)
+- POD 업체 선정 (Printful / Blurb 중 1개 또는 양쪽 어댑터 모두 구현 여부)
+- ICC 프로파일 (USWebCoatedSWOP 외 인쇄소 지정 프로파일 여부)
+- 폰트 라이선스 (OTF/TTF 발주처 보유 여부, 임베딩 권한)
+- 전체 서비스 아키텍처 자료 공유 (Vercel 함수 호출 방식, 입출력 포맷 최종 확정)
+- 정부지원사업 정산 일정 및 마일스톤 검수 양식
+
+---
+
+<유사 프로젝트 진행 경험>
+
+▶ P2P 크라우드펀딩 플랫폼 (약 2개월)
+- 프로젝트 유형: 핀테크 / P2P 대출 / 외부 API 다수 연동
+- 핵심 기능: P2P 분할 투자, NICE KYC(CheckPlus, SafeKey, NPAC), 가상계좌 자동화(Seyfert/PayGate), 4종 대출 유형, 3 크론잡 운영 자동화, 15+ 외부 API 통합
+- 유사점: 동일 언어(Python/Django) 기반 모듈·자동화 개발, 외부 API 다수 연동(POD API 안정 연동에 직결), 규제 환경에서의 산출물 표준화 경험을 정부지원사업 정산 절차에 그대로 활용 가능
+- 기술 스택: Python, Django, MySQL, AWS S3
+
+▶ AI Agent (모듈 기반 자동화 프레임워크) (진행 중)
+- 프로젝트 유형: AI / 자동화 / 모듈 프레임워크
+- 핵심 기능: 134+ 스킬 모듈, 12 품질 게이트, MCP / 외부 도구 통합, 표준 입출력·검증 스키마
+- 유사점: "단일 모듈 = 단일 책임" 패키지 설계 철학과 입출력 스키마 검증·테스트 자동화·어댑터 패턴 운영 경험으로, pip install 가능 Python 모듈 납품과 POD 업체 변경 대응 구조에 직결
+- 기술 스택: TypeScript, Python, MCP, PostgreSQL
+
+▶ VC 펀드 관리 플랫폼 (약 14개월)
+- 프로젝트 유형: 핀테크 / VC / 자동 문서 생성
+- 핵심 기능: AI 투자 보고서 자동 생성(ChatGPT 연동), VICS 규제 5종 양식 PDF 자동 출력, NICE KYC, 외부 API 다수 연동, 실시간 공동편집, 200~300+ API 엔드포인트
+- 유사점: "정해진 규격의 문서를 자동으로 조립·출력"하는 도메인 경험(VICS 양식 자동 출력)을 인쇄 규격 PDF 자동 조립에 그대로 활용 + webhook 처리·외부 API 연동 패턴 동일
+- 기술 스택: Next.js, NestJS, MySQL, AWS
+
+---
+
+<사용 기술과 툴>
+
+▶ 개발 기술
+- 언어: Python 3.10+
+- PDF 라이브러리: fpdf2 / ReportLab (협의 가능)
+- 이미지 / 색관리: Pillow, LittleCMS, ICC 프로파일(USWebCoatedSWOP)
+- QR 코드: qrcode
+- 검증 / 테스트: Pydantic, pytest
+- POD 연동: Printful / Blurb API + webhook
+- 실행 환경: Vercel Serverless / AWS Lambda 호환
+
+▶ 개발 도구 및 인프라
+- 버전 관리: GitHub
+- CI/CD: GitHub Actions (선택)
+- 클라우드: Vercel Serverless (발주처 환경) / AWS Lambda 호환
+- 패키징: pip install 가능 wheel / sdist
+
+▶ 커뮤니케이션
+- 일일 진행 공유: Slack 또는 카카오톡
+- 주간 미팅: Zoom / Google Meet
+- 문서 공유: Notion 또는 Google Docs
+- 이슈 트래킹: GitHub Issues
+```
+
+### 6-6. 관련 포트폴리오 추천
+
+1. **P2P 크라우드펀딩 플랫폼** — Python/Django 기반 외부 API 15+ 연동·자동화 운영 경험으로 POD API 연동·정부지원사업 정산 적합성 확보
+2. **AI Agent (모듈 프레임워크)** — 134+ 스킬을 단일 인터페이스 모듈로 패키징한 경험으로 pip install 가능 Python 모듈 납품 구조에 직결
+3. **VC 펀드 관리 플랫폼 (Series-B)** — VICS 규제 양식 자동 PDF 출력 + 외부 API + webhook 처리 경험으로 인쇄 규격 PDF 자동 조립과 POD 연동에 직결
